@@ -1,0 +1,17 @@
+[Unit]
+Description=Hermes Admin FastAPI Backend
+After=network.target
+
+[Service]
+Type=simple
+User=hermes
+Group=hermes
+WorkingDirectory=/opt/hermes-admin/backend
+Environment=HERMES_ADMIN_DATABASE_URL=sqlite:////opt/hermes-admin/data/hermes_admin.db
+Environment=HERMES_ADMIN_HERMES_BINARY=hermes
+ExecStart=/opt/hermes-admin/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
